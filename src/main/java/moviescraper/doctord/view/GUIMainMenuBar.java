@@ -405,7 +405,7 @@ public class GUIMainMenuBar extends JMenuBar {
 		JMenu scrapeMenu = new JMenu("Scrape");
 		scrapeMenu.setMnemonic(KeyEvent.VK_S);
 
-		JMenuItem scrapeAdultDVDAmalgamated = new JMenuItem(new ScrapeAmalgamatedAction(guiMain,
+		/*JMenuItem scrapeAdultDVDAmalgamated = new JMenuItem(new ScrapeAmalgamatedAction(guiMain,
 				guiMain.getAllAmalgamationOrderingPreferences().getScraperGroupAmalgamationPreference(ScraperGroupName.AMERICAN_ADULT_DVD_SCRAPER_GROUP)));
 		scrapeAdultDVDAmalgamated.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Event.CTRL_MASK | Event.SHIFT_MASK));
 		scrapeAdultDVDAmalgamated.setIcon(GUIMainButtonPanel.initializeImageIcon("App"));
@@ -416,7 +416,7 @@ public class GUIMainMenuBar extends JMenuBar {
 		scrapeJAVAmalgamated.setIcon(GUIMainButtonPanel.initializeImageIcon("Japan"));
 
 		scrapeMenu.add(scrapeAdultDVDAmalgamated);
-		scrapeMenu.add(scrapeJAVAmalgamated);
+		scrapeMenu.add(scrapeJAVAmalgamated);*/
 
 		JMenu specificMenu = new JMenu("Specific Scrape");
 		scrapeMenu.add(specificMenu);

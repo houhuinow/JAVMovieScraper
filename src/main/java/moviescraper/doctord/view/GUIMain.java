@@ -155,7 +155,7 @@ public class GUIMain {
 
 		allAmalgamationOrderingPreferences = new AllAmalgamationOrderingPreferences();
 
-		allAmalgamationOrderingPreferences = allAmalgamationOrderingPreferences.initializeValuesFromPreferenceFile();
+		//allAmalgamationOrderingPreferences = allAmalgamationOrderingPreferences.initializeValuesFromPreferenceFile();
 
 	}
 

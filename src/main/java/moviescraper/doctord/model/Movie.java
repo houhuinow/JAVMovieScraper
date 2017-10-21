@@ -45,9 +45,13 @@ public class Movie {
 	 * because reflection is used in the movie amalgamation routine to get these fields by name, so you will need to 
 	 * update the references in the reflective call with the new name as well.
 	*/
+	@AmalgationField
 	private ArrayList<Actor> actors;
+	@AmalgationField
 	private ArrayList<Director> directors;
+	@AmalgationField
 	private Thumb[] fanart;
+	@AmalgationField
 	private Thumb[] extraFanart;
 	private Thumb preferredFanartToWriteToDisk;
 	private ArrayList<Genre> genres;

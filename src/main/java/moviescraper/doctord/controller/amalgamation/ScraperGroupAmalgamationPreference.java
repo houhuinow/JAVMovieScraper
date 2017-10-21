@@ -94,7 +94,7 @@ public class ScraperGroupAmalgamationPreference {
 		Movie currentMovie = Movie.getEmptyMovie();
 		String[] disallowedFieldNames = { "readTimeout", "connectionTimeout", "preferredFanartToWriteToDisk", "allTitles", "fileName" };
 		ArrayList<String> disallowedFieldNamesArrayList = new ArrayList<>(Arrays.asList(disallowedFieldNames));
-		for (Field field : currentMovie.getClass().getDeclaredFields()) {
+		for (Field field : Movie.class.getDeclaredFields()) {
 			String fieldName = field.getName();
 			if (!disallowedFieldNamesArrayList.contains(fieldName)) {
 

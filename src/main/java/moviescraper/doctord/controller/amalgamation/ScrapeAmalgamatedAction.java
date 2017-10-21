@@ -43,7 +43,7 @@ public class ScrapeAmalgamatedAction extends AbstractAction {
 			this.guiMain.getAllAmalgamationOrderingPreferences().allAmalgamationOrderingPreferences.put(ScraperGroupName.DEFAULT_SCRAPER_GROUP,
 					this.scraperGroupAmalgamationPreference);
 		initializeDefaultValues("Scrape " + siteParsingProfile.getDataItemSourceName());
-		putValue(SCRAPE_KEY, siteParsingProfile.getDataItemSourceName());
+		//putValue(SCRAPE_KEY, siteParsingProfile.getDataItemSourceName());
 	}
 
 	@Override

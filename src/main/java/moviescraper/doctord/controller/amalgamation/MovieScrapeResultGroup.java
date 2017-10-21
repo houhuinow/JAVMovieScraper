@@ -83,6 +83,7 @@ public class MovieScrapeResultGroup {
 
 	@SuppressWarnings("unchecked")
 	public Movie amalgamateMovie() {
+		
 		if (scrapedMovieObjectsForFile == null || scrapedMovieObjectsForFile.size() == 0)
 			return null;
 		if (scrapedMovieObjectsForFile.size() == 1) {
@@ -93,6 +94,7 @@ public class MovieScrapeResultGroup {
 			}
 			return amalgamatedMovie;
 		}
+		return null;/*
 		System.out.println("Amalgamating a movie between " + scrapedMovieObjectsForFile.size() + " Movie objects with preference order = "
 				+ amalgamationPreferenceOrderForEntireMovieGroup.toString());
 		try {
@@ -136,7 +138,7 @@ public class MovieScrapeResultGroup {
 				| NoSuchFieldException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return null;*/
 	}
 
 	/**
