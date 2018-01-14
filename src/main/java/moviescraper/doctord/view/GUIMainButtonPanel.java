@@ -33,6 +33,7 @@ import moviescraper.doctord.controller.PlayMovieAction;
 import moviescraper.doctord.controller.RefreshDirectoryAction;
 import moviescraper.doctord.controller.UpDirectoryAction;
 import moviescraper.doctord.controller.WriteFileDataAction;
+import moviescraper.doctord.controller.amalgamation.Amalgamation;
 import moviescraper.doctord.controller.amalgamation.ScrapeAmalgamatedAction;
 import moviescraper.doctord.controller.siteparsingprofile.SiteParsingProfile;
 import moviescraper.doctord.controller.siteparsingprofile.SiteParsingProfileItem;
@@ -279,16 +280,17 @@ public class GUIMainButtonPanel extends JPanel {
 			}
 		};
 
-		Action scrapeAdultDVDAmalgamatedAction = new ScrapeAmalgamatedAction(guiMain,
-				guiMain.getAllAmalgamationOrderingPreferences().getScraperGroupAmalgamationPreference(ScraperGroupName.AMERICAN_ADULT_DVD_SCRAPER_GROUP));
-		Action scrapeJAVAmalgamatedAction = new ScrapeAmalgamatedAction(guiMain,
-				guiMain.getAllAmalgamationOrderingPreferences().getScraperGroupAmalgamationPreference(ScraperGroupName.JAV_CENSORED_SCRAPER_GROUP));
+		for(Amalgamation amal: Amalgamation.load("/tmp/test.json")) {
+			scrapeMenu.add(new ScrapeAmalgamatedAction(guiMain, amal.getDefinition().getName()));
+		}
+		//Action scrapeJAVAmalgamatedAction = new ScrapeAmalgamatedAction(guiMain,
+		//		guiMain.getAllAmalgamationOrderingPreferences().getScraperGroupAmalgamationPreference(ScraperGroupName.JAV_CENSORED_SCRAPER_GROUP));
 
-		scrapeAdultDVDAmalgamatedAction.putValue(Action.SMALL_ICON, appIcon);
+		/*scrapeAdultDVDAmalgamatedAction.putValue(Action.SMALL_ICON, appIcon);
 		scrapeJAVAmalgamatedAction.putValue(Action.SMALL_ICON, japanIcon);
 
 		scrapeMenu.add(scrapeAdultDVDAmalgamatedAction).addActionListener(scrapeActionListener);
-		scrapeMenu.add(scrapeJAVAmalgamatedAction).addActionListener(scrapeActionListener);
+		scrapeMenu.add(scrapeJAVAmalgamatedAction).addActionListener(scrapeActionListener);*/
 
 		JMenu specificMenu = new JMenu("Specific Scrape");
 		scrapeMenu.add(specificMenu);
@@ -307,15 +309,16 @@ public class GUIMainButtonPanel extends JPanel {
 		}
 
 		String lastUsedScraper = guiMain.getGuiSettings().getLastUsedScraper();
-		Action scrapeAction = scrapeJAVAmalgamatedAction;
+		//Action scrapeAction = scrapeJAVAmalgamatedAction;
 
 		if (lastUsedScraper != null) {
 			Action lastScrapeAction = findScraperAction(scrapeMenu, lastUsedScraper);
-			if (lastScrapeAction != null)
-				scrapeAction = lastScrapeAction;
+			if (lastScrapeAction != null) {
+				//scrapeAction = lastScrapeAction;
+			}
 		}
 
-		scrapeButton.setAction(scrapeAction);
+		//scrapeButton.setAction(scrapeAction);
 
 		scrapeButtons.add(scrapeButton);
 		scrapeButtons.add(arrowButton);

@@ -6,8 +6,11 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -27,7 +30,7 @@ public class TestAmalgamation {
 	static Movie r18SourcedMovie;
 	static Movie javLibrarySourcedMovie;
 	static Movie amalgamatedMovie;
-
+/*
 	@BeforeClass
 	public static void initialize() throws URISyntaxException, NoSuchFieldException, SecurityException {
 		System.out.println("Testing amalgamation");
@@ -105,6 +108,19 @@ public class TestAmalgamation {
 	@Test
 	public void testPlotGlobalSort() {
 		assertEquals("Wrong plot using a standard amalgamation", amalgamatedMovie.getPlot(), r18SourcedMovie.getPlot());
+	}
+	*/
+	@Test
+	public void serialize() {
+		try {
+			List amalgamations = new ArrayList();
+			amalgamations.add(new Amalgamation(new AmalgamationDefinition("test", Movie.class)));
+			amalgamations.add(new Amalgamation(new AmalgamationDefinition("test2", Movie.class)));
+			Amalgamation.save(amalgamations, "/tmp/test2.json");
+		} catch (ClassNotFoundException ex) {
+			Logger.getLogger(TestAmalgamation.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
 	}
 
 }

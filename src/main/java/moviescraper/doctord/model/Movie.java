@@ -39,7 +39,7 @@ import moviescraper.doctord.model.dataitem.*;
 import moviescraper.doctord.model.dataitem.Runtime;
 import moviescraper.doctord.model.preferences.MoviescraperPreferences;
 
-public class Movie {
+public class Movie extends ModelObject{
 
 	/* Be careful if you decide you want to change the field names in this class (especially the arrays) 
 	 * because reflection is used in the movie amalgamation routine to get these fields by name, so you will need to 

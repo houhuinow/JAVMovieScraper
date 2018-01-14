@@ -15,7 +15,8 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import moviescraper.doctord.controller.Renamer;
-import moviescraper.doctord.controller.amalgamation.AmalgamationGroup;
+import moviescraper.doctord.controller.amalgamation.Amalgamation;
+import moviescraper.doctord.controller.amalgamation.AmalgamationDefinition;
 import moviescraper.doctord.controller.releaserenamer.WebReleaseRenamer;
 import moviescraper.doctord.controller.siteparsingprofile.SiteParsingProfile;
 import moviescraper.doctord.controller.siteparsingprofile.specific.AvEntertainmentParsingProfile;
@@ -48,15 +49,15 @@ public class Main {
 		System.out.println("Heap: " + FileUtils.byteCountToDisplaySize(heapSize));
 		System.out.println("Free mem: " + FileUtils.byteCountToDisplaySize(freeMem));
 
-		//AmalgamationGroup[] groups = new AmalgamationGroup[1];
-		//groups[0] = new AmalgamationGroup<Movie>("test");
+		//AmalgamationGroup[] groups = new AmalgamationDefinition[1];
+		//groups[0] = new AmalgamationDefinition<Movie>("test");
 		//List<Object> fanarts = new ArrayList();
 		//fanarts.add("javLibrary");
 		//fanarts.add("test");
 		//fanarts.add("test2");
 		//groups[0].getCategories().put("fanart", fanarts);
 		//0AmalgamationGroup.save(groups, "/tmp/test.json");
-		//AmalgamationGroup[] a = AmalgamationGroup.load("/tmp/test.json");
+		//AmalgamationGroup[] a = AmalgamationDefinition.load("/tmp/test.json");
 		//AmalgamationGroup.save(a, "/tmp/test2.json");
 
 		if (args == null || args.length == 0) {

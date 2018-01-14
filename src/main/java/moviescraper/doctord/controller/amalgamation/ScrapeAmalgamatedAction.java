@@ -20,17 +20,17 @@ public class ScrapeAmalgamatedAction extends AbstractAction {
 
 	ScraperGroupAmalgamationPreference scraperGroupAmalgamationPreference;
 
-	public ScrapeAmalgamatedAction(GUIMain guiMain, ScraperGroupAmalgamationPreference scraperGroupAmalgamationPreference) {
+	public ScrapeAmalgamatedAction(GUIMain guiMain, Object scraperGroupAmalgamationPreference) {
 		this.guiMain = guiMain;
-		this.scraperGroupAmalgamationPreference = scraperGroupAmalgamationPreference;
-		initializeDefaultValues("Scrape Adult Amalgamated " + scraperGroupAmalgamationPreference.toFriendlyString());
+		//this.scraperGroupAmalgamationPreference = scraperGroupAmalgamationPreference;
+		initializeDefaultValues("Scrape Adult Amalgamated " + scraperGroupAmalgamationPreference.toString());
 	}
 
 	private void initializeDefaultValues(String name) {
 		putValue(NAME, name);
 		//putValue(SHORT_DESCRIPTION, name);
 		//this allows us to have a unique name for this action; used to restore the last used scraper in the GUI as the default choice
-		putValue(SCRAPE_KEY, scraperGroupAmalgamationPreference.toFriendlyString());
+		//putValue(SCRAPE_KEY, scraperGroupAmalgamationPreference.toFriendlyString());
 	}
 
 	//Used for just scraping from one specific site. Allows us to reuse code, even though we are just amalgamating from one movie source
