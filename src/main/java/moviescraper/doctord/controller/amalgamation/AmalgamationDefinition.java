@@ -22,7 +22,7 @@ public class AmalgamationDefinition {
 
 	private final String name;
 	private String type;
-	private final Map<String, List<Object>> categories;
+	private final Map<String, List<String>> categories;
 
 
 	public AmalgamationDefinition(String name, Class type){
@@ -46,7 +46,7 @@ public class AmalgamationDefinition {
 		return this.type;
 	}
 	
-	public Map<String, List<Object>> getCategories() {
+	public Map<String, List<String>> getCategories() {
 		return this.categories;
 	}
 }

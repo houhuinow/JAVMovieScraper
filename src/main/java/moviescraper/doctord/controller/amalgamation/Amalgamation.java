@@ -13,7 +13,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -23,14 +25,25 @@ public class Amalgamation {
 
 	private String name;
 	private Class type;
+	private final Map<String, List<String>> categories;
 
 	public Amalgamation(AmalgamationDefinition definition) throws ClassNotFoundException {
 		this.name = definition.getName();
 		this.type = Class.forName("moviescraper.doctord.model." + definition.getType());
+		categories = new HashMap<>();
+		Map<String, List<String>> categoriesMap = definition.getCategories();
+		for(String categoryKeys: categoriesMap.keySet()) {
+			// Load scraper
+			categories.put(categoryKeys, categoriesMap.get(categoryKeys));
+		}
 	}
 
 	public AmalgamationDefinition getDefinition() {
 			return new AmalgamationDefinition(this.name, this.type);
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	public static List<Amalgamation> load(String fileName) {
@@ -45,7 +58,9 @@ public class Amalgamation {
 				while (jsonReader.peek() != JsonToken.END_DOCUMENT) {
 					AmalgamationDefinition definition = gson.fromJson(jsonReader, AmalgamationDefinition.class);
 					groups.add(new Amalgamation(definition));
-					System.out.println(groups + "" + "");
+					for(Amalgamation ama: groups) {
+						System.out.println(ama.name + "--");
+					}
 				}
 			}
 		} catch (FileNotFoundException e) {
@@ -74,6 +89,6 @@ public class Amalgamation {
 			ex.printStackTrace();
 
 		}
-
 	}
+
 }

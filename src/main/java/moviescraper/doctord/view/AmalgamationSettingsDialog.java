@@ -29,7 +29,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import moviescraper.doctord.controller.UtilityFunctions;
-import moviescraper.doctord.controller.amalgamation.AllAmalgamationOrderingPreferences;
 import moviescraper.doctord.controller.amalgamation.DataItemSourceAmalgamationPreference;
 import moviescraper.doctord.controller.amalgamation.ScraperGroupAmalgamationPreference;
 import moviescraper.doctord.controller.siteparsingprofile.SiteParsingProfile.ScraperGroupName;
@@ -70,23 +69,18 @@ public class AmalgamationSettingsDialog {
 	//End View Objects
 
 	//Model objects
-	AllAmalgamationOrderingPreferences amalgamationPreferences; //state of our choices stored here when outside this dialog
-	AllAmalgamationOrderingPreferences amalgamationPreferencesOriginal; //restore us to original state of our object before opening this dialog if we hit cancel
-
 	private DefaultListModel<DataItemSource> overallAmalgamationPreferenceListModel;
 	private DefaultListModel<DataItemSource> specificFieldAmalgamationPreferenceListModel;
 	private DefaultListModel<Field> movieFieldsListModel;
 	Field selectedMovieField;
 
-	public AmalgamationSettingsDialog(GUIMain parent, AllAmalgamationOrderingPreferences amalgamationPreferences) {
+	public AmalgamationSettingsDialog(GUIMain parent) {
 
 		this.guiMain = parent;
 		BorderLayout panelLayoutManager = new BorderLayout();
 		panelLayoutManager.setHgap(layoutHorizontalGap);
 		panelLayoutManager.setVgap(layoutVerticalGap);
 		this.panel = new JPanel(panelLayoutManager);
-		this.amalgamationPreferences = amalgamationPreferences;
-		this.amalgamationPreferencesOriginal = (AllAmalgamationOrderingPreferences) UtilityFunctions.cloneObject(this.amalgamationPreferences);
 
 		panelHeaderSpecificFieldAmalgamationPreference = new JLabel("Specific Field", SwingConstants.CENTER);
 
@@ -191,9 +185,9 @@ public class AmalgamationSettingsDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				amalgamationPreferences.getScraperGroupAmalgamationPreference((ScraperGroupName) scraperGroupNameComboBox.getSelectedItem())
+				/*amalgamationPreferences.getScraperGroupAmalgamationPreference((ScraperGroupName) scraperGroupNameComboBox.getSelectedItem())
 						.removeCustomOrderingForField(selectedMovieField);
-				createSpecificFieldAmalgamationPreferenceList();
+				createSpecificFieldAmalgamationPreferenceList();*/
 			}
 		});
 		return button;
@@ -205,9 +199,9 @@ public class AmalgamationSettingsDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				amalgamationPreferences.reinitializeDefaultPreferences();
+				/*amalgamationPreferences.reinitializeDefaultPreferences();
 				createOverallAmalgamationPreferenceList();
-				createSpecificFieldAmalgamationPreferenceList();
+				createSpecificFieldAmalgamationPreferenceList();*/
 			}
 		});
 		return resetToDefaultSettings;
@@ -215,7 +209,7 @@ public class AmalgamationSettingsDialog {
 
 	private void synchronizeAmalgamationPreferenceListToDataItemSourceAmalgamationPreference(final DefaultListModel<DataItemSource> amalgamationPreferenceListModel,
 			boolean isOverallPrefSync) {
-		if (amalgamationPreferenceListModel != null) {
+		/*if (amalgamationPreferenceListModel != null) {
 			LinkedList<DataItemSource> sppiAllValues = new LinkedList<>();
 			for (int i = 0; i < amalgamationPreferenceListModel.getSize(); i++) {
 				sppiAllValues.add(amalgamationPreferenceListModel.get(i));
@@ -230,7 +224,7 @@ public class AmalgamationSettingsDialog {
 						.setCustomOrderingForField(selectedMovieField, preferenceToSet);
 				panelHeaderSpecificFieldAmalgamationPreference.setText("<html> Using <b>Specific</b> Ordering for " + getNameOfCurrentMovieFieldSelected() + "</html>");
 			}
-		}
+		}*/
 	}
 
 	private void swapElements(final JList<DataItemSource> amalgamationPreferenceList, final DefaultListModel<DataItemSource> amalgamationPreferenceListModel,
@@ -330,11 +324,11 @@ public class AmalgamationSettingsDialog {
 			overallAmalgamationPreferenceList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			overallAmalgamationPreferenceList.setCellRenderer(new DataItemSourceRenderer());
 		}
-		Collection<DataItemSource> listData = amalgamationPreferences.getScraperGroupAmalgamationPreference((ScraperGroupName) scraperGroupNameComboBox.getSelectedItem())
+		/*Collection<DataItemSource> listData = amalgamationPreferences.getScraperGroupAmalgamationPreference((ScraperGroupName) scraperGroupNameComboBox.getSelectedItem())
 				.getOverallAmalgamationPreference().getAmalgamationPreferenceOrder();
 		for (DataItemSource currentItem : listData) {
 			overallAmalgamationPreferenceListModel.addElement(currentItem);
-		}
+		}*/
 
 		synchronizeAmalgamationPreferenceListToDataItemSourceAmalgamationPreference(overallAmalgamationPreferenceListModel, true);
 		return overallAmalgamationPreferenceList;
@@ -364,7 +358,7 @@ public class AmalgamationSettingsDialog {
 			specificFieldAmalgamationPreferenceList.setCellRenderer(new DataItemSourceRenderer());
 		}
 
-		Collection<DataItemSource> listData;
+		/*Collection<DataItemSource> listData;
 		DataItemSourceAmalgamationPreference orderingForField = amalgamationPreferences
 				.getScraperGroupAmalgamationPreference((ScraperGroupName) scraperGroupNameComboBox.getSelectedItem()).getSpecificAmalgamationPreference(selectedMovieField);
 
@@ -384,7 +378,7 @@ public class AmalgamationSettingsDialog {
 		}
 		for (DataItemSource currentItem : listData) {
 			specificFieldAmalgamationPreferenceListModel.addElement(currentItem);
-		}
+		}*/
 
 		specificFieldAmalgamationPreferenceList.updateUI();
 		return specificFieldAmalgamationPreferenceList;
@@ -432,7 +426,7 @@ public class AmalgamationSettingsDialog {
 	}
 
 	private void restorePreferencesBeforeDialogOpened() {
-		amalgamationPreferences.setAllAmalgamationOrderingPreferences(amalgamationPreferencesOriginal.getAllAmalgamationOrderingPreferences());
+		//amalgamationPreferences.setAllAmalgamationOrderingPreferences(amalgamationPreferencesOriginal.getAllAmalgamationOrderingPreferences());
 
 	}
 
@@ -444,7 +438,7 @@ public class AmalgamationSettingsDialog {
 
 		if (result == JOptionPane.OK_OPTION) {
 
-			amalgamationPreferences.saveToPreferencesFile();
+			//amalgamationPreferences.saveToPreferencesFile();
 			guiMain.reinitializeAmalgamationPreferencesFromFile();
 
 			return true;

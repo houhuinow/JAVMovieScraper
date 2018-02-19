@@ -17,7 +17,6 @@ import java.awt.BorderLayout;
 import javax.swing.JList;
 
 import moviescraper.doctord.controller.SelectFileListAction;
-import moviescraper.doctord.controller.amalgamation.AllAmalgamationOrderingPreferences;
 import moviescraper.doctord.model.IconCache;
 import moviescraper.doctord.model.Movie;
 import moviescraper.doctord.model.SearchResult;
@@ -54,6 +53,7 @@ import javafx.embed.swing.JFXPanel;
 import javafx.stage.DirectoryChooser;
 import javax.swing.BoxLayout;
 import javax.swing.event.ListSelectionListener;
+import moviescraper.doctord.controller.amalgamation.Amalgamation;
 
 public class GUIMain {
 
@@ -69,7 +69,7 @@ public class GUIMain {
 	private File defaultHomeDirectory;
 	private MoviescraperPreferences preferences;
 	private GuiSettings guiSettings;
-	private AllAmalgamationOrderingPreferences allAmalgamationOrderingPreferences;
+	private List<Amalgamation> amalg;
 
 	//scraped movies
 	public List<Movie> movieToWriteToDiskList;
@@ -153,8 +153,6 @@ public class GUIMain {
 	 */
 	public void reinitializeAmalgamationPreferencesFromFile() {
 
-		allAmalgamationOrderingPreferences = new AllAmalgamationOrderingPreferences();
-
 		//allAmalgamationOrderingPreferences = allAmalgamationOrderingPreferences.initializeValuesFromPreferenceFile();
 
 	}
@@ -168,6 +166,7 @@ public class GUIMain {
 		guiSettings = GuiSettings.getInstance();
 
 		reinitializeAmalgamationPreferencesFromFile();
+		amalg = Amalgamation.load("/tmp/test.json");
 
 		setCurrentlySelectedNfoFileList(new ArrayList<File>());
 		setCurrentlySelectedMovieFileList(new ArrayList<File>());
@@ -701,20 +700,12 @@ public class GUIMain {
 	}
 
 	public boolean showAmalgamationSettingsDialog() {
-		AmalgamationSettingsDialog dialog = new AmalgamationSettingsDialog(this, getAllAmalgamationOrderingPreferences());
+		AmalgamationSettingsDialog dialog = new AmalgamationSettingsDialog(this);
 		return dialog.show();
 	}
 
-	public AllAmalgamationOrderingPreferences getAllAmalgamationOrderingPreferences() {
-		//rereading from file in case external program somehow decides to change this file before we get it.
-		//also this fixes a bug where canceling a scrape somehow corrupted the variable and caused an error when opening the
-		//amalgamation settings dialog
-		allAmalgamationOrderingPreferences = allAmalgamationOrderingPreferences.initializeValuesFromPreferenceFile();
-		return allAmalgamationOrderingPreferences;
-	}
-
-	public void setAllAmalgamationOrderingPreferences(AllAmalgamationOrderingPreferences allAmalgamationOrderingPreferences) {
-		this.allAmalgamationOrderingPreferences = allAmalgamationOrderingPreferences;
+	public List<Amalgamation> getAllAmalgamations() {
+		return amalg;
 	}
 
 	public void enableFileWrite() {

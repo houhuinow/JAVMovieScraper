@@ -57,7 +57,10 @@ public class Main {
 		//fanarts.add("test2");
 		//groups[0].getCategories().put("fanart", fanarts);
 		//0AmalgamationGroup.save(groups, "/tmp/test.json");
-		//AmalgamationGroup[] a = AmalgamationDefinition.load("/tmp/test.json");
+		List<Amalgamation> a = Amalgamation.load("/tmp/test.json");
+		for(Amalgamation ab: a) {
+			System.out.println(""+ab);
+		}
 		//AmalgamationGroup.save(a, "/tmp/test2.json");
 
 		if (args == null || args.length == 0) {

@@ -1,6 +1,8 @@
 package moviescraper.doctord.controller.amalgamation;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
 
@@ -9,7 +11,7 @@ import moviescraper.doctord.controller.siteparsingprofile.SiteParsingProfile.Scr
 import moviescraper.doctord.view.GUIMain;
 import moviescraper.doctord.view.ScrapeAmalgamatedProgressDialog;
 
-public class ScrapeAmalgamatedAction extends AbstractAction {
+public class ScrapeAction extends AbstractAction {
 
 	private static final long serialVersionUID = 1L;
 
@@ -19,11 +21,10 @@ public class ScrapeAmalgamatedAction extends AbstractAction {
 	public static final String SCRAPE_KEY = "SCRAPE_KEY";
 
 	ScraperGroupAmalgamationPreference scraperGroupAmalgamationPreference;
+	List<SiteParsingProfile> scrapers;
 
-	public ScrapeAmalgamatedAction(GUIMain guiMain, Object scraperGroupAmalgamationPreference) {
+	public ScrapeAction(GUIMain guiMain, Object scraperGroupAmalgamationPreference) {
 		this.guiMain = guiMain;
-		//this.scraperGroupAmalgamationPreference = scraperGroupAmalgamationPreference;
-		initializeDefaultValues("Scrape Adult Amalgamated " + scraperGroupAmalgamationPreference.toString());
 	}
 
 	private void initializeDefaultValues(String name) {
@@ -34,15 +35,10 @@ public class ScrapeAmalgamatedAction extends AbstractAction {
 	}
 
 	//Used for just scraping from one specific site. Allows us to reuse code, even though we are just amalgamating from one movie source
-	public ScrapeAmalgamatedAction(GUIMain guiMain, SiteParsingProfile siteParsingProfile) {
+	public ScrapeAction(GUIMain guiMain, SiteParsingProfile scraper) {
 		this.guiMain = guiMain;
-		DataItemSourceAmalgamationPreference overallOrdering = new DataItemSourceAmalgamationPreference(siteParsingProfile);
-		ScraperGroupAmalgamationPreference preferences = new ScraperGroupAmalgamationPreference(ScraperGroupName.DEFAULT_SCRAPER_GROUP, overallOrdering);
-		this.scraperGroupAmalgamationPreference = preferences;
-		if (this.guiMain != null)
-			this.guiMain.getAllAmalgamationOrderingPreferences().allAmalgamationOrderingPreferences.put(ScraperGroupName.DEFAULT_SCRAPER_GROUP,
-					this.scraperGroupAmalgamationPreference);
-		initializeDefaultValues("Scrape " + siteParsingProfile.getDataItemSourceName());
+		scrapers = new ArrayList<>();
+		scrapers.add(scraper);
 		//putValue(SCRAPE_KEY, siteParsingProfile.getDataItemSourceName());
 	}
 
@@ -55,6 +51,8 @@ public class ScrapeAmalgamatedAction extends AbstractAction {
 
 		}
 
+		System.out.println(""+scrapers);
+
 		if (guiMain != null) {
 
 			guiMain.setMainGUIEnabled(false);
@@ -62,9 +60,9 @@ public class ScrapeAmalgamatedAction extends AbstractAction {
 			guiMain.removeOldScrapedMovieReferences();
 		}
 
-		ScrapeAmalgamatedProgressDialog scraperWindow = new ScrapeAmalgamatedProgressDialog(guiMain, guiMain.getAllAmalgamationOrderingPreferences(),
-				scraperGroupAmalgamationPreference);
-		scraperWindow.setVisible(true);
+		ScrapeAmalgamatedProgressDialog scraperWindow = new ScrapeAmalgamatedProgressDialog(guiMain, scrapers);
+		//scraperWindow.setVisible(true);
+		guiMain.setMainGUIEnabled(true);
 	}
 
 }
