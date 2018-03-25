@@ -130,7 +130,6 @@ public class GUIMain {
 				} catch (Exception e) {
 					e.printStackTrace();
 					JOptionPane.showMessageDialog(null, ExceptionUtils.getStackTrace(e), "Unhandled Exception", JOptionPane.ERROR_MESSAGE);
-
 				}
 			}
 		});

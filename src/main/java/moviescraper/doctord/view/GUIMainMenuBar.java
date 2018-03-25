@@ -417,7 +417,7 @@ public class GUIMainMenuBar extends JMenuBar {
 
 		scrapeMenu.add(scrapeAdultDVDAmalgamated);
 		scrapeMenu.add(scrapeJAVAmalgamated);*/
-
+		scrapeMenu.add(new JMenuItem("pouet"));
 		JMenu specificMenu = new JMenu("Specific Scrape");
 		scrapeMenu.add(specificMenu);
 

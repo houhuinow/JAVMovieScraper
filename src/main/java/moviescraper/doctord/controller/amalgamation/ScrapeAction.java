@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractAction;
+import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
 import moviescraper.doctord.controller.siteparsingprofile.SiteParsingProfile;
@@ -23,8 +24,10 @@ public class ScrapeAction extends AbstractAction {
 	ScraperGroupAmalgamationPreference scraperGroupAmalgamationPreference;
 	List<SiteParsingProfile> scrapers;
 
-	public ScrapeAction(GUIMain guiMain, Object scraperGroupAmalgamationPreference) {
+	public ScrapeAction(GUIMain guiMain, String name, Icon icon) {
+		super(name, icon);
 		this.guiMain = guiMain;
+
 	}
 
 	private void initializeDefaultValues(String name) {

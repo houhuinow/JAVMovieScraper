@@ -114,10 +114,14 @@ public class TestAmalgamation {
 	public void serialize() {
 		try {
 			List amalgamations = new ArrayList();
-			amalgamations.add(new Amalgamation(new AmalgamationDefinition("test", Movie.class)));
-			amalgamations.add(new Amalgamation(new AmalgamationDefinition("test2", Movie.class)));
+			amalgamations.add(new Amalgamation(new AmalgamationDefinition("test", Movie.class, null)));
+			amalgamations.add(new Amalgamation(new AmalgamationDefinition("test2", Movie.class, null)));
 			Amalgamation.save(amalgamations, "/tmp/test2.json");
 		} catch (ClassNotFoundException ex) {
+			Logger.getLogger(TestAmalgamation.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (InstantiationException ex) {
+			Logger.getLogger(TestAmalgamation.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (IllegalAccessException ex) {
 			Logger.getLogger(TestAmalgamation.class.getName()).log(Level.SEVERE, null, ex);
 		}
 

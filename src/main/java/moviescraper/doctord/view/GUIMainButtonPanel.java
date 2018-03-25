@@ -38,7 +38,6 @@ import moviescraper.doctord.controller.amalgamation.ScrapeAction;
 import moviescraper.doctord.controller.siteparsingprofile.SiteParsingProfile;
 import moviescraper.doctord.controller.siteparsingprofile.SiteParsingProfileItem;
 import moviescraper.doctord.controller.siteparsingprofile.SpecificProfileFactory;
-import moviescraper.doctord.controller.siteparsingprofile.SiteParsingProfile.ScraperGroupName;
 
 import org.imgscalr.Scalr;
 import org.imgscalr.Scalr.Method;
@@ -255,9 +254,6 @@ public class GUIMainButtonPanel extends JPanel {
 		JToolBar scrapeButtons = new JToolBar("Scrape");
 
 		ImageIcon arrowIcon = initializeImageIcon("Arrow");
-		ImageIcon japanIcon = initializeImageIcon("Japan");
-		//ImageIcon data18Icon = initializeImageIcon("Data18");
-		ImageIcon appIcon = initializeImageIcon("App");
 
 		final JButton scrapeButton = new JButton();
 		final JButton arrowButton = new JButton(arrowIcon);
@@ -281,16 +277,13 @@ public class GUIMainButtonPanel extends JPanel {
 		};
 
 		for(Amalgamation amal: Amalgamation.load("/tmp/test.json")) {
-			scrapeMenu.add(new ScrapeAction(guiMain, amal.getName()));
+			ImageIcon amalgamationIcon = null;
+			if(amal.getIcon() != null) {
+				amalgamationIcon = initializeImageIcon(amal.getIcon());
+			}
+			scrapeMenu.add(new ScrapeAction(guiMain, amal.getName(), amalgamationIcon));
 		}
-		Action scrapeJAVAmalgamatedAction = new ScrapeAction(guiMain, null);
-		//		guiMain.getAllAmalgamationOrderingPreferences().getScraperGroupAmalgamationPreference(ScraperGroupName.JAV_CENSORED_SCRAPER_GROUP));
-
-		/*scrapeAdultDVDAmalgamatedAction.putValue(Action.SMALL_ICON, appIcon);
-		scrapeJAVAmalgamatedAction.putValue(Action.SMALL_ICON, japanIcon);
-
-		scrapeMenu.add(scrapeAdultDVDAmalgamatedAction).addActionListener(scrapeActionListener);
-		scrapeMenu.add(scrapeJAVAmalgamatedAction).addActionListener(scrapeActionListener);*/
+		Action scrapeJAVAmalgamatedAction = new ScrapeAction(guiMain, "", null);
 
 		JMenu specificMenu = new JMenu("Specific Scrape");
 		scrapeMenu.add(specificMenu);

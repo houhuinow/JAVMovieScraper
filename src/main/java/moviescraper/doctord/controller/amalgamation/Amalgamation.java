@@ -16,34 +16,65 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import moviescraper.doctord.controller.siteparsingprofile.SiteParsingProfile;
+import moviescraper.doctord.controller.siteparsingprofile.specific.SpecificProfile;
 
 /**
- *
- * @author deusp
+ * An amalgamation is the association of a name and a type to a sorted list of scraper for each field of this type
+ * e.g. An amalgamation named "asian movies" for type "Movie" will hold a list of scrapers name for plot, one for year and so on
+ * 
  */
 public class Amalgamation {
 
-	private String name;
-	private Class type;
-	private final Map<String, List<String>> categories;
+	private final String name;
+	private final Class type;
+	private final String icon;
+	private final Map<String, List<SiteParsingProfile>> fields;
 
-	public Amalgamation(AmalgamationDefinition definition) throws ClassNotFoundException {
+	public Amalgamation(AmalgamationDefinition definition) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		this.name = definition.getName();
 		this.type = Class.forName("moviescraper.doctord.model." + definition.getType());
-		categories = new HashMap<>();
-		Map<String, List<String>> categoriesMap = definition.getCategories();
-		for(String categoryKeys: categoriesMap.keySet()) {
+		this.icon = definition.getIcon();
+		fields = new HashMap<>();
+		Map<String, List<String>> fieldMap = definition.getFields();
+
+		for(Map.Entry<String, List<String>> field: fieldMap.entrySet()) {
 			// Load scraper
-			categories.put(categoryKeys, categoriesMap.get(categoryKeys));
+			List<SiteParsingProfile> scrapers = new ArrayList<>();
+
+			for(String scraperName: field.getValue()) {
+				SiteParsingProfile scraper = (SiteParsingProfile) Class.forName("moviescraper.doctord.controller.siteparsingprofile.specific." + scraperName).newInstance();
+				scrapers.add(scraper);
+			}
+
+			fields.put(field.getKey(), scrapers);
 		}
 	}
 
 	public AmalgamationDefinition getDefinition() {
-			return new AmalgamationDefinition(this.name, this.type);
+			return new AmalgamationDefinition(this.name, this.type, this.icon);
 	}
 
 	public String getName() {
 		return name;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public String toString() {
+		StringBuilder outputString = new StringBuilder();
+		outputString.append(this.getName());
+		outputString.append(" --> ");
+		for(Map.Entry<String,List<SiteParsingProfile>> field: fields.entrySet()) {
+			outputString.append(field.getKey());
+			outputString.append(field.getValue());
+			outputString.append(", ");
+		}
+
+		return outputString.toString();
 	}
 
 	public static List<Amalgamation> load(String fileName) {
@@ -58,9 +89,10 @@ public class Amalgamation {
 				while (jsonReader.peek() != JsonToken.END_DOCUMENT) {
 					AmalgamationDefinition definition = gson.fromJson(jsonReader, AmalgamationDefinition.class);
 					groups.add(new Amalgamation(definition));
-					for(Amalgamation ama: groups) {
-						System.out.println(ama.name + "--");
-					}
+				}
+				System.out.println("--");
+				for(Amalgamation ama: groups) {
+					System.out.println(" >" + ama.toString());
 				}
 			}
 		} catch (FileNotFoundException e) {
@@ -90,5 +122,4 @@ public class Amalgamation {
 
 		}
 	}
-
 }
